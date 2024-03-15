@@ -1,9 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page import="org.example.bbs.user.User" %>
-<%
-    String userID = (String) session.getAttribute("userID");
-%>
 <!doctype html>
 <html>
 <head>
@@ -16,6 +12,12 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 </head>
 <body>
+    <%
+        String userID = null;
+        if (session.getAttribute("userID") != null) {
+            userID = (String) session.getAttribute("userID");
+        }
+    %>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
         <div>
@@ -41,7 +43,7 @@
                         접속하기
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark">
-                        <li class="active"><a class="dropdown-item" href="login.jsp">로그인</a></li>
+                        <li><a class="dropdown-item" href="login.jsp">로그인</a></li>
                         <li><a class="dropdown-item" href="join.jsp">회원가입</a></li>
                     </ul>
                 </li>

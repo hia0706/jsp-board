@@ -92,7 +92,7 @@ public class BbsDAO {
     }
 
     public boolean nextPage(int pageNumber) {
-        String sql = "selelct * from bbs where bbsID < ? and bbsAvailable = 1";
+        String sql = "select * from bbs where bbsID < ? and bbsAvailable = 1";
         try {
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, getNext() -(pageNumber - 1) * 10);

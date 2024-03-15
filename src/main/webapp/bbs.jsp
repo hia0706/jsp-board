@@ -3,27 +3,31 @@
 <%@ page import="org.example.bbs.bbs.BbsDAO"%>
 <%@ page import="org.example.bbs.bbs.Bbs"%>
 <%@ page import="java.util.ArrayList"%>
-<%
-    String userID = (String) session.getAttribute("userID");
-%>
 <!doctype html>
 <html>
 <head>
-    <title>메인 &#60; | JSP 게시판 웹 사이트</title>
+    <title>게시판 &#60; | JSP 게시판 웹 사이트</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <title>JSP 게시판 웹 사이트</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <style type="text/css">
+        a, a:hover {
+            color: #000000;
+            text-decoration: none;
+        }
+    </style>
 </head>
 <body>
     <%
+        String userID = null;
         if (session.getAttribute("userID") != null) {
             userID = (String) session.getAttribute("userID");
         }
         int pageNumber = 1;
-        if (request.getParameter("pageNUmber") != null) {
+        if (request.getParameter("pageNumber") != null) {
             pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
         }
     %>
@@ -94,7 +98,7 @@
                     for (int i = 0; i < list.size(); i++) {
                 %>
                     <tr>
-                        <td><%= list.get(i).getBbsID() %>></td>
+                        <td><%= list.get(i).getBbsID() %></td>
                         <td><a href="view.jsp?bbsID=<%= list.get(i).getBbsID() %>"><%= list.get(i).getBbsTitle()%></a></td>
                         <td><%= list.get(i).getUserID()%></td>
                         <td><%= list.get(i).getBbsDate().substring(0, 11) + list.get(i).getBbsDate().substring(11, 13) + "시 " + list.get(i).getBbsDate().substring(14, 16) + "분 "%></td>
@@ -104,7 +108,17 @@
                   %>
                 </tbody>
             </table>
-            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        </div>
+        <div class="row">
+            <div class="col text-start">
+                <% if (pageNumber != 1) { %>
+                <a href="bbs.jsp?pageNumber=<%=pageNumber - 1%>" class="btn btn-success">이전</a>
+                <% } %>
+                <% if (bbsDAO.nextPage(pageNumber + 1)) { %>
+                <a href="bbs.jsp?pageNumber=<%=pageNumber + 1%>" class="btn btn-success">다음</a>
+                <% } %>
+            </div>
+            <div class="col text-end">
                 <a href="write.jsp" class="btn btn-primary">글쓰기</a>
             </div>
         </div>
