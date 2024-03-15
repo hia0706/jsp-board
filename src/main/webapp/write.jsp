@@ -1,8 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%
-    String userID = (String) session.getAttribute("userID");
-%>
 <!doctype html>
 <html>
 <head>
@@ -15,6 +12,12 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 </head>
 <body>
+<%
+    String userID = null;
+    if (session.getAttribute("userID") != null) {
+        userID = (String) session.getAttribute("userID");
+    }
+%>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
         <div>
