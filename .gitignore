@@ -131,6 +131,7 @@ atlassian-ide-plugin.xml
 
 # Cursive Clojure plugin
 .idea/replstate.xml
+.idea/inspectionProfiles
 
 # SonarLint plugin
 .idea/sonarlint/
