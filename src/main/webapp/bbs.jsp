@@ -3,7 +3,8 @@
 <%@ page import="org.example.bbs.bbs.BbsDAO"%>
 <%@ page import="org.example.bbs.bbs.Bbs"%>
 <%@ page import="java.util.ArrayList"%>
-<!doctype html>
+ <%@ page import="java.util.List" %>
+ <!doctype html>
 <html>
 <head>
     <title>게시판 &#60; | JSP 게시판 웹 사이트</title>
@@ -94,12 +95,12 @@
                 <tbody>
                 <%
                     BbsDAO bbsDAO = new BbsDAO();
-                    ArrayList<Bbs> list = bbsDAO.getList(pageNumber);
+                    List<Bbs> list = bbsDAO.getList(pageNumber);
                     for (int i = 0; i < list.size(); i++) {
                 %>
                     <tr>
                         <td><%= list.get(i).getBbsID() %></td>
-                        <td><a href="view.jsp?bbsID=<%= list.get(i).getBbsID() %>"><%= list.get(i).getBbsTitle()%></a></td>
+                        <td><a href="view.jsp?bbsID=<%= list.get(i).getBbsID() %>"><%= list.get(i).getBbsTitle().replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>")%></a></td>
                         <td><%= list.get(i).getUserID()%></td>
                         <td><%= list.get(i).getBbsDate().substring(0, 11) + list.get(i).getBbsDate().substring(11, 13) + "시 " + list.get(i).getBbsDate().substring(14, 16) + "분 "%></td>
                     </tr>

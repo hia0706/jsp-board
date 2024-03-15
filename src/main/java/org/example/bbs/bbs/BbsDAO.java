@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.List;
 
 public class BbsDAO {
 
@@ -68,9 +69,9 @@ public class BbsDAO {
         return -1; // 데이터베이스 오류
     }
 
-    public ArrayList<Bbs> getList(int pageNumber) {
+    public List<Bbs> getList(int pageNumber) {
         String sql = "select * from bbs where bbsID < ? and bbsAvailable = 1 order by bbsID desc limit 10";
-        ArrayList<Bbs> list = new ArrayList<>();
+        List<Bbs> list = new ArrayList<>();
         try {
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, getNext() -(pageNumber - 1) * 10);
@@ -104,5 +105,27 @@ public class BbsDAO {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public Bbs getBbs(int bbsID) {
+        String sql = "select * from bbs where bbsID = ?";
+        try {
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, bbsID);
+            rs = pstmt.executeQuery();
+            if (rs.next()) {
+                Bbs bbs = new Bbs();
+                bbs.setBbsID(rs.getInt(1));
+                bbs.setBbsTitle(rs.getString(2));
+                bbs.setUserID(rs.getString(3));
+                bbs.setBbsDate(rs.getString(4));
+                bbs.setBbsContent(rs.getString(5));
+                bbs.setBbsAvailable(rs.getInt(6));
+                return bbs;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
