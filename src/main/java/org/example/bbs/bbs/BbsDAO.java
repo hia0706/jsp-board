@@ -142,4 +142,16 @@ public class BbsDAO {
         }
         return -1; // 데이터베이스 오류
     }
+
+    public int delete(int bbsID) {
+        String sql = "update bbs set bbsAvailable = 0 where bbsID = ?";
+        try {
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, bbsID);
+            return pstmt.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return -1; // 데이터베이스 오류
+    }
 }
