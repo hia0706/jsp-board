@@ -2,8 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="org.example.bbs.bbs.BbsDAO"%>
 <%@ page import="org.example.bbs.bbs.Bbs"%>
-<%@ page import="java.util.ArrayList"%>
- <%@ page import="java.util.List" %>
+<%@ page import="java.util.List" %>
  <!doctype html>
 <html>
 <head>
